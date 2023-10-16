@@ -2,6 +2,7 @@ package com.kh.product.svc;
 
 import com.kh.product.dao.entity.Product;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface ProductSVC {
@@ -12,9 +13,11 @@ public interface ProductSVC {
     // Read
     Optional<Product> readById(Long pid);
 
+    // findAll 전체목록조회
+    List<Product> findAll();
 
     // Delete
-    Long deleteProduct(Long pid);
+    int deleteProduct(Long pid);
 
 
     // Update

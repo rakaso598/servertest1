@@ -5,6 +5,7 @@ import com.kh.product.dao.entity.Product;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
@@ -12,6 +13,7 @@ import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -67,19 +69,33 @@ public class ProductDAOImpl implements ProductDAO{
 
     // --------------------- Delete 상품삭제 ------------------------//
     @Override
-    public Long deleteProduct(Long pid) {
+    public int deleteProduct(Long pid) {
         //1) sql문 작성
         StringBuffer sql = new StringBuffer();
         sql.append("    DELETE FROM product  ");
         sql.append("    WHERE pid = :pid  ");
 
-        //2) sql 실행 -- 자동매핑 이용
+        //2) 수동매핑
+        int deleteById = template.update(sql.toString(), Map.of("pid", pid));
 
-        SqlParameterSource param = new BeanPropertySqlParameterSource(pid);
-        KeyHolder keyHolder = new GeneratedKeyHolder();
-        template.update(sql.toString(),param,keyHolder,new String[]{"pid"});
+        return deleteById;
+    }
 
-        long deletedPid = keyHolder.getKey().longValue();
-        return deletedPid;
+    // --------------------- Update 상품수정 ------------------------//
+
+
+
+    // --------------------- findAll 목록조회 ------------------------//
+
+    @Override
+    public List<Product> findAll() {
+        StringBuffer sql = new StringBuffer();
+        sql.append("    select pid, pname, quantity, price ");
+        sql.append("    from product               ");
+        sql.append("    order by pid desc   ");
+
+        // 결과셋 자동 매핑
+        List<Product> list = template.query(sql.toString(), BeanPropertyRowMapper.newInstance(Product.class));
+        return list;
     }
 }

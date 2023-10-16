@@ -3,6 +3,7 @@ package com.kh.product.web;
 import com.kh.product.dao.entity.Product;
 import com.kh.product.svc.ProductSVC;
 import com.kh.product.web.form.CreateForm;
+import com.kh.product.web.form.FindAllForm;
 import com.kh.product.web.form.ReadForm;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -11,6 +12,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 
@@ -57,9 +60,36 @@ public class ProductController {
     /*  -------------------- 상품등록 끝 ------------------------- */
 
 
-    /*  -------------------- 상품상세조회 ------------------------- */
 
-    //조회 양식 (조회 페이지)
+    /*  -------------------- 상품목록조회 ------------------------- */
+
+    //GET http://localhost:9090/products/findAll
+    @GetMapping("/findAll")
+    public String findAllForm(Model model){
+        List<Product> list = productSVC.findAll();
+        List<FindAllForm> allFormList = new ArrayList<>();
+
+        for(Product product : list){
+            FindAllForm findAllForm = new FindAllForm();
+            findAllForm.setPid(product.getPid());
+            findAllForm.setPname(product.getPname());
+            allFormList.add(findAllForm);
+        }
+        model.addAttribute("allFormList",allFormList);
+        return "product/findAll";
+
+    }
+
+
+
+    /*  -------------------- 상품목록조회 끝 ------------------------- */
+
+
+
+
+
+
+    /*  -------------------- 상품상세조회 ------------------------- */
     @GetMapping("/{pid}/read")  //GET http://localhost:9090/products/{pid}/read
     public String readForm(
             @PathVariable("pid") Long pid,
@@ -81,7 +111,14 @@ public class ProductController {
     /*  -------------------- 상품상세조회 끝 ------------------------- */
 
 
-    /*  -------------------- 상품수정 ------------------------------ */
+    /*  -------------------- 상품삭제 ------------------------------ */
 
+    // DELETE http://localhost:9090/products/{pid}
+    @DeleteMapping("/{pid}")
+    public String delete(@PathVariable("pid") Long pid){
 
+        productSVC.deleteProduct(pid);
+
+        return "/product/create";
+    }
 }

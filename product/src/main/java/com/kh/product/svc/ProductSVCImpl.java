@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Slf4j
@@ -27,7 +28,12 @@ public class ProductSVCImpl implements ProductSVC {
     }
 
     @Override
-    public Long deleteProduct(Long pid) {
+    public int deleteProduct(Long pid) {
         return productDAO.deleteProduct(pid);
+    }
+
+    @Override
+    public List<Product> findAll() {
+        return productDAO.findAll();
     }
 }
