@@ -7,6 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
@@ -81,8 +82,23 @@ public class ProductDAOImpl implements ProductDAO{
         return deleteById;
     }
 
-    // --------------------- Update 상품수정 ------------------------//
+    // --------------------- Update 상품수정 처리 ------------------------//
+    @Override
+    public int updateProduct(Long pid, Product product) {
+        //1) sql문 작성
+        StringBuffer sql = new StringBuffer();
+        sql.append(" update product ");
+        sql.append("  set pname = :pname , quantity = :quantity , price = :price  ");
+        sql.append("  where pid = :pid   ");
 
+        //2) sql 매핑
+        SqlParameterSource param = new BeanPropertySqlParameterSource(product);
+        KeyHolder keyHolder = new GeneratedKeyHolder();
+        template.update(sql.toString(),param,keyHolder,new String[]{"pid"});
+
+        int updatedPid = keyHolder.getKey().intValue();
+        return updatedPid;
+    }
 
 
     // --------------------- findAll 목록조회 ------------------------//

@@ -21,4 +21,5 @@ public interface ProductSVC {
 
 
     // Update
+    int updateProduct(Long pid, Product product);
 }

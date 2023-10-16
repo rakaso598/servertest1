@@ -22,6 +22,7 @@ public class ProductSVCImpl implements ProductSVC {
         return productDAO.createProduct(product);
     }
 
+
     @Override
     public Optional<Product> readById(Long pid) {
         return productDAO.readById(pid);
@@ -35,5 +36,10 @@ public class ProductSVCImpl implements ProductSVC {
     @Override
     public List<Product> findAll() {
         return productDAO.findAll();
+    }
+
+    @Override
+    public int updateProduct(Long pid, Product product) {
+        return productDAO.updateProduct(pid, product);
     }
 }

@@ -78,14 +78,7 @@ public class ProductController {
         return "product/findAll";
 
     }
-
-
-
     /*  -------------------- 상품목록조회 끝 ------------------------- */
-
-
-
-
 
 
     /*  -------------------- 상품상세조회 ------------------------- */
@@ -106,12 +99,9 @@ public class ProductController {
         model.addAttribute("readForm", readForm);
         return "product/read";
     }
-
     /*  -------------------- 상품상세조회 끝 ------------------------- */
 
-
     /*  -------------------- 상품삭제 ------------------------------ */
-
     // DELETE http://localhost:9090/products/{pid}
     @DeleteMapping("/{pid}")
     public String delete(@PathVariable("pid") Long pid){
@@ -122,4 +112,22 @@ public class ProductController {
         return "redirect:/products/findAll";
         //상품 목록의 GET 주소 : http://localhost:9090/products/findAll
     }
+    /*  -------------------- 상품수정 화면 ------------------------- */
+    // GET http://localhost:9090/products/{pid}/update
+    @GetMapping("/{pid}/update")
+    public String update(@PathVariable("pid") Long pid){
+        return null;
+    }
+    /*  -------------------- 상품수정 화면 끝 ------------------------- */
+    /*  -------------------- 상품수정 처리 ------------------------- */
+
+
+
+
+
+
+
+
+    /*  -------------------- 상품수정 처리 끝 ------------------------- */
+
 }

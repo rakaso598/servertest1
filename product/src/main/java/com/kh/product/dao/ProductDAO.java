@@ -21,4 +21,5 @@ public interface ProductDAO {
     int deleteProduct(Long pid);
 
     // Update
+    int updateProduct(Long pid, Product product);
 }
