@@ -70,7 +70,7 @@ public class ProductDAOImpl implements ProductDAO{
 
     // --------------------- Delete 상품삭제 ------------------------//
     @Override
-    public int deleteProduct(Long pid) {
+    public int deleteProduct(int pid) {
         //1) sql문 작성
         StringBuffer sql = new StringBuffer();
         sql.append("    DELETE FROM product  ");
@@ -93,11 +93,10 @@ public class ProductDAOImpl implements ProductDAO{
 
         //2) sql 매핑
         SqlParameterSource param = new BeanPropertySqlParameterSource(product);
-        KeyHolder keyHolder = new GeneratedKeyHolder();
-        template.update(sql.toString(),param,keyHolder,new String[]{"pid"});
 
-        int updatedPid = keyHolder.getKey().intValue();
-        return updatedPid;
+        int updatedProduct = template.update(sql.toString(), param);
+
+        return updatedProduct;
     }
 
 

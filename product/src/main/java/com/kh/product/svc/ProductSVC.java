@@ -17,7 +17,7 @@ public interface ProductSVC {
     List<Product> findAll();
 
     // Delete 상품삭제
-    int deleteProduct(Long pid);
+    int deleteProduct(int pid);
 
 
     // Update 상품수정

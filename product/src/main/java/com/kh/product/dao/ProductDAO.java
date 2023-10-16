@@ -18,7 +18,7 @@ public interface ProductDAO {
 
 
     // Delete 상품삭제
-    int deleteProduct(Long pid);
+    int deleteProduct(int pid);
 
     // Update 상품수정
     int updateProduct(Long pid, Product product);

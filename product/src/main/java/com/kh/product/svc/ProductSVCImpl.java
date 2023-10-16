@@ -28,7 +28,7 @@ public class ProductSVCImpl implements ProductSVC {
     }
 
     @Override
-    public int deleteProduct(Long pid) {
+    public int deleteProduct(int pid) {
         return productDAO.deleteProduct(pid);
     }
 

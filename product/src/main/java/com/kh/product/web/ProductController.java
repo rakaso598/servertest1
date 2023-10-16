@@ -5,6 +5,7 @@ import com.kh.product.svc.ProductSVC;
 import com.kh.product.web.form.CreateForm;
 import com.kh.product.web.form.FindAllForm;
 import com.kh.product.web.form.ReadForm;
+import com.kh.product.web.form.UpdateForm;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -102,9 +103,9 @@ public class ProductController {
     /*  -------------------- Read 상품상세조회 끝 ------------------------- */
 
     /*  -------------------- Delete 상품삭제 ------------------------------ */
-    // DELETE http://localhost:9090/products/{pid}
+    // http://localhost:9090/products/{pid}
     @DeleteMapping("/{pid}")
-    public String delete(@PathVariable("pid") Long pid){
+    public String delete(@PathVariable("pid") int pid){
 
         productSVC.deleteProduct(pid);
 
@@ -115,18 +116,49 @@ public class ProductController {
     /*  -------------------- Delete 상품삭제 끝 ------------------------------ */
 
 
-    /*  -------------------- Update 상품수정 화면 ------------------------- */
-    // GET http://localhost:9090/products/{pid}/update
-    @GetMapping("/{pid}/update")
-    public String update(@PathVariable("pid") Long pid){
-        return null;
+
+
+    /*  -------------------- Update 상품수정 기능 ------------------------- */
+    // POST http://localhost:9090/products/{pid}/update
+    @PostMapping("/{pid}/update")
+    public String update(@PathVariable("pid") Long pid,
+                         @ModelAttribute UpdateForm updateForm,
+                         RedirectAttributes redirectAttributes){
+
+        Product product = new Product();
+        product.setPid(updateForm.getPid());
+        product.setPname(updateForm.getPname());
+        product.setQuantity(updateForm.getQuantity());
+        product.setPrice(updateForm.getPrice());
+
+        // product를 updateProduct 하는 메소드
+        productSVC.updateProduct(pid, product);
+
+        // 리다이렉트 주소에 파라미터 pid
+        redirectAttributes.addAttribute("pid",pid);
+        return "redirect:/products/{pid}/read";
     }
-    /*  -------------------- Update 상품수정 화면 끝 ------------------------- */
+    /*  -------------------- Update 상품수정 기능 끝 ------------------------- */
 
-    /*  --------------------- Update 상품수정 처리 -------------------------- */
+    /*  --------------------- Update 상품수정 화면 -------------------------- */
+    @GetMapping("/{pid}/update") // GET http://localhost:9090/products/{pid}/update
+    public String updateForm(@PathVariable("pid") Long pid,
+                             Model model){
 
+        Optional<Product> readedProduct = productSVC.readById(pid);
+        Product product = readedProduct.orElseThrow();
 
-    /*  -------------------- Update 상품수정 처리 끝 -------------------------- */
+        UpdateForm updateForm = new UpdateForm();
+        updateForm.setPid(product.getPid());
+        updateForm.setPname(product.getPname());
+        updateForm.setQuantity(product.getQuantity());
+        updateForm.setPrice(product.getPrice());
+
+        model.addAttribute("updateForm",updateForm);
+        return "/product/update";
+    }
+
+    /*  -------------------- Update 상품수정 화면 끝 -------------------------- */
 
 
 
