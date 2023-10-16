@@ -6,22 +6,50 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>상세조회</title>
+    <script type="module">
+    //목록
+    document.getElementById('btnFindAll').addEventListener('click',e=>{
+      location.href='/products';
+    });
+    //삭제
+    document.getElementById('btnDelete').addEventListener('click', e=>{
+      if(confirm('삭제하시겠습니까?')){
+        const pid = e.target.dataset.pid;
+
+        (async ()=>{
+          const url = `/products/${pid}`;
+          const option = {
+            method:'DELETE'
+          }
+          const result = await fetch(url,option);
+          location.href = '/products';
+        })();
+      }
+    });
+    </script>
 </head>
 <body>
-상세조회
+<h3>상세조회</h3>
     <form action="" method="post" th:object="${readForm}">
         <div>
             <label for="pid">상품번호</label>
-            <input type="text" id="pid" name="pid" readonly th:field="*{pid}"></div>
+            <input type="text" id="pid" name="pid" readonly th:field="*{pid}">
+        </div>
         <div>
             <label for="pname">상품명</label>
-            <input type="text" id="pname" name="pname" readonly th:field="*{pname}"></div>
+            <input type="text" id="pname" name="pname" readonly th:field="*{pname}">
+        </div>
         <div>
             <label for="quantity">수량</label>
-            <input type="text" id="quantity" name="quantity" readonly th:field="*{quantity}"></div>
+            <input type="text" id="quantity" name="quantity" readonly th:field="*{quantity}">
+        </div>
         <div>
             <label for="price">가격</label>
-            <input type="text" id="price" name="price" readonly th:field="*{price}"></div>
+            <input type="text" id="price" name="price" readonly th:field="*{price}">
+        </div>
+        <input type="button" value="목록" id="btnFindAll">
+        <input type="button" value="수정" id="btnUpdate" th:data-pid="*{pid}" >
+        <input type="button" value="삭제" id="btnDelete" th:data-pid="*{pid}">
     </form>
 </body>
 </html>

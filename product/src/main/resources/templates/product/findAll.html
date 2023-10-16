@@ -5,10 +5,15 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>전체목록</title>
+    <title>상품목록</title>
+    <script type="module">
+    btnAdd.addEventListener('click', e=>{
+      location.href = '/products/create';
+    });
+    </script>
 </head>
 <body>
-전체목록
+<h3>상품목록</h3>
 <div>
     <table>
         <thead>
@@ -25,6 +30,7 @@
         </tr>
         </tbody>
     </table>
+    <div><button id="btnAdd">상품등록</button></div>
 </div>
 </body>
 </html>

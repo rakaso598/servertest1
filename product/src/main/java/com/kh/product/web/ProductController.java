@@ -62,9 +62,8 @@ public class ProductController {
 
 
     /*  -------------------- 상품목록조회 ------------------------- */
-
-    //GET http://localhost:9090/products/findAll
-    @GetMapping("/findAll")
+    //GET http://localhost:9090/products
+    @GetMapping
     public String findAllForm(Model model){
         List<Product> list = productSVC.findAll();
         List<FindAllForm> allFormList = new ArrayList<>();
@@ -119,6 +118,8 @@ public class ProductController {
 
         productSVC.deleteProduct(pid);
 
-        return "/product/create";
+        //상품 삭제 후 상품 목록으로 이동
+        return "redirect:/products/findAll";
+        //상품 목록의 GET 주소 : http://localhost:9090/products/findAll
     }
 }
