@@ -7,19 +7,19 @@ import java.util.Optional;
 
 public interface ProductDAO {
 
-    // Create
+    // Create 상품등록
     Long createProduct(Product product);
 
-    // findAll 목록조회
+    // FindAll 상품목록조회
     List<Product> findAll();
     
-    // Read 상세조회
+    // Read 상품상세조회
     Optional<Product> readById(Long pid);
 
 
-    // Delete
+    // Delete 상품삭제
     int deleteProduct(Long pid);
 
-    // Update
+    // Update 상품수정
     int updateProduct(Long pid, Product product);
 }

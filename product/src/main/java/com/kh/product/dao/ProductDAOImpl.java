@@ -25,7 +25,7 @@ public class ProductDAOImpl implements ProductDAO{
 
     private final NamedParameterJdbcTemplate template;
 
-    // ---------------------------상품등록--------------------------//
+    // ---------------------------Create 상품등록--------------------------//
     @Override
     public Long createProduct(Product product) {
         // 1) sql문
@@ -44,7 +44,7 @@ public class ProductDAOImpl implements ProductDAO{
         return createdPid;
     }
 
-    // --------------------- Read 상세조회 ------------------------//
+    // --------------------- Read 상품상세조회 ------------------------//
     @Override
     public Optional<Product> readById(Long pid) {
         StringBuffer sql = new StringBuffer();
@@ -82,7 +82,7 @@ public class ProductDAOImpl implements ProductDAO{
         return deleteById;
     }
 
-    // --------------------- Update 상품수정 처리 ------------------------//
+    // --------------------- Update 상품수정 ------------------------//
     @Override
     public int updateProduct(Long pid, Product product) {
         //1) sql문 작성
@@ -101,7 +101,7 @@ public class ProductDAOImpl implements ProductDAO{
     }
 
 
-    // --------------------- findAll 목록조회 ------------------------//
+    // --------------------- FindAll 상품목록조회 ------------------------//
 
     @Override
     public List<Product> findAll() {

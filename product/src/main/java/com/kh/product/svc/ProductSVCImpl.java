@@ -16,7 +16,6 @@ public class ProductSVCImpl implements ProductSVC {
 
     private final ProductDAO productDAO;
 
-    // Create
     @Override
     public Long createProduct(Product product) {
         return productDAO.createProduct(product);

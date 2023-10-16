@@ -7,19 +7,19 @@ import java.util.Optional;
 
 public interface ProductSVC {
 
-    // Create
+    // Create 상품등록
     Long createProduct(Product product);
 
-    // Read
+    // Read 상품상세조회
     Optional<Product> readById(Long pid);
 
-    // findAll 전체목록조회
+    // FindAll 전체목록조회
     List<Product> findAll();
 
-    // Delete
+    // Delete 상품삭제
     int deleteProduct(Long pid);
 
 
-    // Update
+    // Update 상품수정
     int updateProduct(Long pid, Product product);
 }

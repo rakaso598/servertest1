@@ -25,7 +25,7 @@ public class ProductController {
 
     private final ProductSVC productSVC;
 
-    /*  -------------------- 상품등록 ------------------------- */
+    /*  -------------------- Create 상품등록 화면 ------------------------- */
 
     // 상품등록양식 호출 GET
     @GetMapping("/create") // GET http://localhost:9090/products/create
@@ -37,6 +37,7 @@ public class ProductController {
         // http://localhost:9090/products/createForm?pname=%EB%85%B8%ED%8A%B8%EB%B6%81&quantity=1&price=80000
     }
 
+    /*  -------------------- Create 상품등록 처리 ------------------------- */
     // 상품등록 행위 POST
     @PostMapping("/create") // POST http://localhost:9090/products/create
     public String create(@ModelAttribute CreateForm createForm,
@@ -56,12 +57,11 @@ public class ProductController {
         // {id} 파라미터에 pid 를 넣은 후 => read 로 리다이렉트 (등록 후 상세조회)
         return "redirect:/products/{pid}/read";   // 302 GET http://localhost:9090/products/1/read
     }
-
-    /*  -------------------- 상품등록 끝 ------------------------- */
-
+    /*  -------------------- Create 상품등록 끝 ------------------------- */
 
 
-    /*  -------------------- 상품목록조회 ------------------------- */
+
+    /*  -------------------- FindAll 상품목록조회 ------------------------- */
     //GET http://localhost:9090/products
     @GetMapping
     public String findAllForm(Model model){
@@ -78,10 +78,10 @@ public class ProductController {
         return "product/findAll";
 
     }
-    /*  -------------------- 상품목록조회 끝 ------------------------- */
+    /*  -------------------- FindAll 상품목록조회 끝 ------------------------- */
 
 
-    /*  -------------------- 상품상세조회 ------------------------- */
+    /*  ----------------------- Read 상품상세조회 ------------------------- */
     @GetMapping("/{pid}/read")  //GET http://localhost:9090/products/{pid}/read
     public String readForm(
             @PathVariable("pid") Long pid,
@@ -99,9 +99,9 @@ public class ProductController {
         model.addAttribute("readForm", readForm);
         return "product/read";
     }
-    /*  -------------------- 상품상세조회 끝 ------------------------- */
+    /*  -------------------- Read 상품상세조회 끝 ------------------------- */
 
-    /*  -------------------- 상품삭제 ------------------------------ */
+    /*  -------------------- Delete 상품삭제 ------------------------------ */
     // DELETE http://localhost:9090/products/{pid}
     @DeleteMapping("/{pid}")
     public String delete(@PathVariable("pid") Long pid){
@@ -112,14 +112,21 @@ public class ProductController {
         return "redirect:/products/findAll";
         //상품 목록의 GET 주소 : http://localhost:9090/products/findAll
     }
-    /*  -------------------- 상품수정 화면 ------------------------- */
+    /*  -------------------- Delete 상품삭제 끝 ------------------------------ */
+
+
+    /*  -------------------- Update 상품수정 화면 ------------------------- */
     // GET http://localhost:9090/products/{pid}/update
     @GetMapping("/{pid}/update")
     public String update(@PathVariable("pid") Long pid){
         return null;
     }
-    /*  -------------------- 상품수정 화면 끝 ------------------------- */
-    /*  -------------------- 상품수정 처리 ------------------------- */
+    /*  -------------------- Update 상품수정 화면 끝 ------------------------- */
+
+    /*  --------------------- Update 상품수정 처리 -------------------------- */
+
+
+    /*  -------------------- Update 상품수정 처리 끝 -------------------------- */
 
 
 
@@ -127,7 +134,6 @@ public class ProductController {
 
 
 
-
-    /*  -------------------- 상품수정 처리 끝 ------------------------- */
+    /*  ----------------------- 상품수정 처리 끝 ------------------------- */
 
 }
