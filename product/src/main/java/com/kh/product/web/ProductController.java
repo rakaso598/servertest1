@@ -6,17 +6,18 @@ import com.kh.product.web.form.CreateForm;
 import com.kh.product.web.form.FindAllForm;
 import com.kh.product.web.form.ReadForm;
 import com.kh.product.web.form.UpdateForm;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-
 
 @Slf4j
 @Controller
@@ -41,9 +42,15 @@ public class ProductController {
     /*  -------------------- Create 상품등록 처리 ------------------------- */
     // 상품등록 행위 POST
     @PostMapping("/create") // POST http://localhost:9090/products/create
-    public String create(@ModelAttribute CreateForm createForm,
+    public String create(@Valid @ModelAttribute CreateForm createForm,
+                         BindingResult bindingResult,
                          RedirectAttributes redirectAttributes){
         log.info("!! POST create 호출 !!");
+
+        if(bindingResult.hasErrors()){
+            log.info("bindingResult={}", bindingResult);
+            return "product/create";
+        }
 
         Product product = new Product();
         product.setPname(createForm.getPname());
@@ -122,8 +129,14 @@ public class ProductController {
     // POST http://localhost:9090/products/{pid}/update
     @PostMapping("/{pid}/update")
     public String update(@PathVariable("pid") Long pid,
-                         @ModelAttribute UpdateForm updateForm,
+                         @Valid @ModelAttribute UpdateForm updateForm,
+                         BindingResult bindingResult,
                          RedirectAttributes redirectAttributes){
+
+        if(bindingResult.hasErrors()){
+            log.info("bindingResult={}", bindingResult);
+            return "product/update";
+        }
 
         Product product = new Product();
         product.setPid(updateForm.getPid());

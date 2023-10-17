@@ -9,6 +9,8 @@
 </head>
 <body>
 <h3>상품수정</h3>
+<div class="field-error" th:errors="${updateForm}">...</div>
+
 <form id="frm" action="" th:method="post" th:object="${updateForm}">
     <div>
         <label for="pid">상품번호</label>
@@ -16,17 +18,22 @@
     </div>
     <div>
         <label for="pname">상품명</label>
-        <input type="text" id="pname" name="pname" th:field="*{pname}">
+        <input type="text" id="pname" name="pname" th:field="*{pname}" th:errorclass="fieldError">
+        <span class="field-error" th:errors="*{pname}"></span>
     </div>
     <div>
-        <label for="quantity">상품명</label>
-        <input type="text" id="quantity" name="quantity" th:field="*{quantity}">
+        <label for="quantity">수량</label>
+        <input type="text" id="quantity" name="quantity" th:field="*{quantity}" th:errorclass="fieldError">
+        <span class="field-error" th:errors="*{quantity}"></span>
     </div>
     <div>
-        <label for="price">상품명</label>
-        <input type="text" id="price" name="price" th:field="*{price}">
+        <label for="price">가격</label>
+        <input type="text" id="price" name="price" th:field="*{price}" th:errorclass="fieldError">
+        <span class="field-error" th:errors="*{price}"></span>
     </div>
     <div><input type="submit" value="수정완료" id="updateSubmit" th:data-pid="*{pid}"></div>
 </form>
+
+
 </body>
 </html>
