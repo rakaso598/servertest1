@@ -26,6 +26,12 @@
         })();
       }
     });
+    //수정 화면 주소로 이동 GET http://localhost:9090/products/{pid}/update
+    document.getElementById('btnUpdate').addEventListener('click',e=>{
+        const pid = e.target.dataset.pid;
+        const url = `/products/${pid}/update`;
+        location.href = url;
+    });
     </script>
 </head>
 <body>
